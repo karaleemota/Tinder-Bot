@@ -1,2 +1,3 @@
 # Tinder-Bot
-Yes, my friend and I made a Tinder bot. No, we don't actually use it.
+This poject was made mainly to teach myself Python and <br />
+how bots work.
