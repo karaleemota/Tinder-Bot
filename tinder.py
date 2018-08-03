@@ -52,15 +52,19 @@ def main():
     time.sleep(3)
     tab()
     school = driver.find_elements(By.XPATH, '//*[@id="content"]/div/span/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[1]/div[3]/div[4]/div[1]/span')
-    age = driver.find_element(By.XPATH, '//*[@id="content"]/div/span/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[1]/div[3]/div[5]/div[1]/div/span[2]').text
+    age = driver.find_elements(By.XPATH, '//*[@id="content"]/div/span/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[1]/div[3]/div[5]/div[1]/div/span[2]')
     if agePref:
         print ("age entered succesfully")
         agePref = ", " + agePref#convert age pref to ", ##" format
         for n in range (0, int(times)):
-            age = driver.find_element(By.XPATH, '//*[@id="content"]/div/span/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[1]/div[3]/div[5]/div[1]/div/span[2]').text
-            if agePref == age:
-                swipeRight()
-            else:
+            age = driver.find_elements(By.XPATH, '//*[@id="content"]/div/span/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[1]/div[3]/div[5]/div[1]/div/span[2]')
+            if age:#age found
+                ageNum = age[0].text
+                if agePref == ageNum:
+                    swipeRight()
+                else:
+                    swipeLeft()
+            else:#age not found
                 swipeLeft()
     elif schoolPref:#swipe right on ucla/usc students
         print("okay, will swipe right on all usc/ucla students")
@@ -68,9 +72,11 @@ def main():
             school = driver.find_elements(By.XPATH, '//*[@id="content"]/div/span/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[1]/div[3]/div[4]/div[1]/span')
             if school: #profile has school name in it
                 schoolName = school[0].text.lower()
-                if(schoolName=="usc" or schoolName=="university of southern california" or schoolName=="university of so cal" or schoolName=="ucla"\
-                   or schoolName=="university of california los angeles" or schoolName=='uc los angeles' or schoolName=="university of california la"\
-                   or schoolName=="university of california, la" or schoolName=="university of california, los angeles"):
+                if(schoolName=="usc" or schoolName=="university of southern california" or\
+                   schoolName=="university of so cal" or schoolName=="ucla" or\
+                   schoolName=="university of california los angeles" or schoolName=='uc los angeles'\
+                   or schoolName=="university of california la" or schoolName=="university of california, la"\
+                   or schoolName=="university of california, los angeles"):
                     swipeRight()
                 else:
                     swipeLeft()#school name doesnt match usc or ucla
